@@ -31,11 +31,35 @@ class ProjectInput {
         this.configure();
         this.attach();
     }
+    gatherUserInput() {
+        const enteredTitle = this.titleInputElement.value;
+        const enteredDescription = this.descriptionInputElement.value;
+        const enteredPeople = this.peopleInputElement.value;
+        // validation
+        if (enteredTitle.trim().length === 0 ||
+            enteredDescription.trim().length === 0 ||
+            enteredPeople.trim().length === 0) {
+            alert("Invalid input, please try again!");
+            return;
+        }
+        else {
+            return [enteredTitle, enteredDescription, parseFloat(enteredPeople)];
+        }
+    }
+    clearInputs() {
+        this.titleInputElement.value = "";
+        this.descriptionInputElement.value = "";
+        this.peopleInputElement.value = "";
+    }
     submitHandler(e) {
         e.preventDefault();
-        const title = this.titleInputElement.value;
-        const description = this.descriptionInputElement.value;
-        const people = this.peopleInputElement.value;
+        const userInput = this.gatherUserInput();
+        // check whether userInput is a Tuple type(arrays in vanilla js) or not
+        if (Array.isArray(userInput)) {
+            const [title, description, people] = userInput;
+            this.clearInputs();
+            console.log(title, description, people);
+        }
     }
     configure() {
         this.element.addEventListener("submit", this.submitHandler);
