@@ -20,7 +20,6 @@ class Project {
         this.status = status;
     }
 }
-// Project State Management
 class ProjectState {
     constructor() {
         this.listeners = [];
